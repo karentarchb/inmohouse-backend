@@ -5,8 +5,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const corsOptions = {
+console.log(`[CORS CONFIG] Origen permitido por la variable de entorno: ${process.env.CORS_ORIGIN}`);
 
+const corsOptions = {
   origin: 'process.env.CORS_ORIGIN',
   optionsSuccessStatus: 200
 };
