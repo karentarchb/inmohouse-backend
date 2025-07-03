@@ -1,18 +1,9 @@
 # Proyecto InmoHouse - Backend
-```
-<br/>
-<div align="center">
-<h1 align="center">Backend de InmoHouse</h1>
-<p align="center">
+##  **Backend de InmoHouse**
 API RESTful construida con Node.js, Express y PostgreSQL para la gestión de una plataforma inmobiliaria.
-<br />
-<a href="https://github.com/karentarchb/inmohouse-backend"><strong>Explorar el código »</strong></a>
-<br />
-<br />
-<strong>API en vivo:</strong> <a href="https://inmohouse-backend.onrender.com">https://inmohouse-backend.onrender.com</a>
-</p>
-</div>
-```
+Explorar el código:
+https://github.com/karentarchb/inmohouse-backend
+API en vivo: https://inmohouse-backend.onrender.com
 
 ##  **1. Visión General del Proyecto**
 Este repositorio contiene el código fuente del servidor backend para la aplicación InmoHouse. La API ha sido diseñada para ser robusta, segura y escalable, proveyendo todos los servicios necesarios para la gestión de usuarios, propiedades y autenticación.
