@@ -5,10 +5,15 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-console.log(`[CORS CONFIG] Origen permitido por la variable de entorno: ${process.env.CORS_ORIGIN}`);
-
 const corsOptions = {
-  origin: 'process.env.CORS_ORIGIN',
+  origin: function (origin, callback) {
+    const allowedOrigins = [process.env.CORS_ORIGIN];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por la política de CORS'));
+    }
+  },
   optionsSuccessStatus: 200
 };
 
