@@ -5,9 +5,13 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  'https://inmohouse-bc.vercel.app',
+  'http://localhost:4200'
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [process.env.CORS_ORIGIN];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
