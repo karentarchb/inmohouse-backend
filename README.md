@@ -14,16 +14,17 @@ El backend se encarga de toda la lógica de negocio, la interacción con la base
 Se tomaron decisiones clave para asegurar que el backend sea eficiente, mantenible y seguro, siguiendo las mejores prácticas de la industria.
 
 ##  **2.1. Stack Tecnológico**
-Componente
-```
-| Componente | Tecnología | Justificación |  |
-| --- | --- | --- | --- |
-| **Entorno de Ejecución** | **Node.js** | Elegido por su modelo de I/O no bloqueante y su alto rendimiento, ideal para construir APIs rápidas y escalables. El uso de JavaScript en todo el stack (con Angular en el frontend) reduce la carga cognitiva. |  |
-| **Framework** | **Express.js** | Un framework minimalista y flexible para Node.js que permite una organización clara de rutas, middlewares y controladores, sin añadir complejidad innecesaria. |  |
-| **Base de Datos** | **PostgreSQL** | Se optó por una base de datos relacional (SQL) debido a la naturaleza estructurada y relacional de los datos (usuarios tienen roles, propiedades tienen agentes). PostgreSQL ofrece robustez, consistencia de datos y capacidades avanzadas. |  |
-| **Autenticación** | **JWT (JSON Web Tokens)** | Estándar moderno y seguro para la autenticación en APIs. Permite crear sesiones stateless, donde el token auto-contenido lleva toda la información necesaria (ID de usuario, rol) para verificar la identidad y los permisos en cada petición. |  |
-| **Seguridad de Contraseñas** | **bcrypt.js** | Librería estándar para el hashing de contraseñas. Asegura que las contraseñas nunca se almacenen en texto plano, utilizando un algoritmo de hash con "sal" para prevenir ataques de diccionario y rainbow tables. |  |
-```
+- **Entorno de Ejecución: Node.js**
+    - *Justificación:* Elegido por su modelo de I/O no bloqueante y su alto rendimiento, ideal para construir APIs rápidas y escalables. El uso de JavaScript en todo el stack (con Angular en el frontend) reduce la carga cognitiva.
+- **Framework: Express.js**
+    - *Justificación:* Un framework minimalista y flexible para Node.js que permite una organización clara de rutas, middlewares y controladores, sin añadir complejidad innecesaria.
+- **Base de Datos: PostgreSQL**
+    - *Justificación:* Se optó por una base de datos relacional (SQL) debido a la naturaleza estructurada y relacional de los datos (usuarios tienen roles, propiedades tienen agentes). PostgreSQL ofrece robustez, consistencia de datos y capacidades avanzadas.
+- **Autenticación: JWT (JSON Web Tokens)**
+    - *Justificación:* Estándar moderno y seguro para la autenticación en APIs. Permite crear sesiones stateless, donde el token auto-contenido lleva toda la información necesaria (ID de usuario, rol) para verificar la identidad y los permisos en cada petición.
+- **Seguridad de Contraseñas: bcrypt.js**
+    - *Justificación:* Librería estándar para el hashing de contraseñas. Asegura que las contraseñas nunca se almacenen en texto plano, utilizando un algoritmo de hash con "sal" para prevenir ataques de diccionario y rainbow tables.
+
 ##  **2.2. Estructura de Carpetas**
 El código está organizado siguiendo un patrón de diseño orientado a funcionalidades para maximizar la escalabilidad y mantenibilidad.
 ```
@@ -45,27 +46,53 @@ Middleware authorize(...roles): Se ejecuta después de protect. Recibe una lista
 
 ##  **3. Endpoints de la API**
 A continuación se detallan los endpoints principales implementados.
-```
-| Método | Ruta | Descripción | Acceso Permitido |
-| --- | --- | --- | --- |
-| **Autenticación** |  |  |  |
-| `POST` | `/api/auth/register` | Registra un nuevo usuario con el rol de 'cliente'. | Público |
-| `POST` | `/api/auth/login` | Autentica un usuario y devuelve un JWT. | Público |
-| **Usuarios** |  |  |  |
-| `GET` | `/api/users` | Devuelve una lista de todos los usuarios del sistema. | Administrador |
-| `POST` | `/api/users` | Crea un nuevo usuario (con rol especificado). | Administrador |
-| `PUT` | `/api/users/:id` | Actualiza los datos de un usuario específico. | Administrador |
-| `DELETE` | `/api/users/:id` | Elimina un usuario específico. | Administrador |
-| `GET` | `/api/users/agents` | Devuelve una lista de todos los usuarios con rol 'agente'. | Administrador, Agente |
-| **Propiedades** |  |  |  |
-| `GET` | `/api/properties` | Devuelve una lista de todas las propiedades. | Autenticado (Cualquier rol) |
-| `POST` | `/api/properties` | Crea una nueva propiedad. | Administrador, Agente |
-| `PUT` | `/api/properties/:id` | Actualiza una propiedad específica. | Administrador, Agente |
-| `DELETE` | `/api/properties/:id` | Elimina una propiedad específica. | Administrador, Agente |
-| **Estadísticas** |  |  |  |
-| `GET` | `/api/stats/summary` | Devuelve un resumen con totales de usuarios, agentes y propiedades. | Administrador, Agente, Cliente |
+### **Autenticación**
 
-```
+- **`POST /api/auth/register`**
+    - **Descripción:** Registra un nuevo usuario con el rol de 'cliente'.
+    - **Acceso:** Público.
+- **`POST /api/auth/login`**
+    - **Descripción:** Autentica un usuario y devuelve un JWT.
+    - **Acceso:** Público.
+
+### **Usuarios**
+
+- **`GET /api/users`**
+    - **Descripción:** Devuelve una lista de todos los usuarios del sistema.
+    - **Acceso:** Administrador.
+- **`POST /api/users`**
+    - **Descripción:** Crea un nuevo usuario (con rol especificado).
+    - **Acceso:** Administrador.
+- **`PUT /api/users/:id`**
+    - **Descripción:** Actualiza los datos de un usuario específico.
+    - **Acceso:** Administrador.
+- **`DELETE /api/users/:id`**
+    - **Descripción:** Elimina un usuario específico.
+    - **Acceso:** Administrador.
+- **`GET /api/users/agents`**
+    - **Descripción:** Devuelve una lista de todos los usuarios con rol 'agente'.
+    - **Acceso:** Administrador, Agente.
+
+### **Propiedades**
+
+- **`GET /api/properties`**
+    - **Descripción:** Devuelve una lista de todas las propiedades.
+    - **Acceso:** Autenticado (Cualquier rol).
+- **`POST /api/properties`**
+    - **Descripción:** Crea una nueva propiedad.
+    - **Acceso:** Administrador, Agente.
+- **`PUT /api/properties/:id`**
+    - **Descripción:** Actualiza una propiedad específica.
+    - **Acceso:** Administrador, Agente.
+- **`DELETE /api/properties/:id`**
+    - **Descripción:** Elimina una propiedad específica.
+    - **Acceso:** Administrador, Agente.
+
+### **Estadísticas**
+
+- **`GET /api/stats/summary`**
+    - **Descripción:** Devuelve un resumen con totales de usuarios, agentes y propiedades.
+    - **Acceso:** Administrador, Agente, Cliente.
 ##  **4. Guía de Instalación y Ejecución Local**
 ##  **4.1. Prerrequisitos**
 Node.js (versión 18.x o superior)
